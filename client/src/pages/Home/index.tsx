@@ -10,10 +10,9 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 
-
 // From MUI templates
-const Album = () => {
-  const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9] 
+const Home = () => {
+  const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   return (
     <main>
       {/* Hero unit */}
@@ -97,4 +96,4 @@ const Album = () => {
   )
 }
 
-export default Album
+export { Home }
