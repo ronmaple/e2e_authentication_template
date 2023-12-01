@@ -14,7 +14,6 @@ interface RequestHandler {
 
 export const register: RequestHandler = async (req, res) => {
   const body = req.body
-  console.log(body)
   try {
     const existingUser = await User.findOne({ email: body.email })
     if (existingUser) {
