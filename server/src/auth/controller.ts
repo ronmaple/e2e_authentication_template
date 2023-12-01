@@ -15,20 +15,23 @@ interface RequestHandler {
 export const register: RequestHandler = async (req, res) => {
   const body = req.body
   try {
-    const existingUser = await User.findOne({ username: body.username })
+    const existingUser = await User.findOne({ email: body.email })
     if (existingUser) {
-      throw new Error('Username already taken')
+      throw new Error('email already taken')
     }
 
     const hashedPassword = await bcrypt.hash(body.password, saltRounds)
     const user = await User.create({
-      username: body.username,
+      email: body.email,
+      firstName: body.firstName,
+      lastName: body.lastName,
       password: hashedPassword,
     })
 
     res.status(200).send(user)
   } catch (err: any) {
-    if (err.message === 'Username already taken') {
+    console.log(err)
+    if (err.message === 'email already taken') {
       return res.status(409).send({ message: err.message })
     }
     return res.send(500)
@@ -38,7 +41,7 @@ export const register: RequestHandler = async (req, res) => {
 export const login: RequestHandler = async (req, res) => {
   const body = req.body
   try {
-    const existingUser = await User.findOne({ username: body.username })
+    const existingUser = await User.findOne({ email: body.email })
     if (!existingUser) {
       throw new Error('Not Found')
     }
@@ -52,7 +55,7 @@ export const login: RequestHandler = async (req, res) => {
     const token = jwt.sign(
       {
         id: existingUser._id,
-        username: existingUser.username,
+        email: existingUser.email,
         role: existingUser.role,
       },
       jwtSecret,

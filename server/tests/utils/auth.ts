@@ -1,7 +1,8 @@
 import axios from './axios'
 
 export const signup = async (params: {
-  username: string
+  email: string
+  firstName: string
   password: string
 }) => {
   const response = await axios.post('/auth/signup', params)
@@ -15,7 +16,9 @@ export const login = async (params: {}) => {
 
 export const getToken = async (
   user = {
-    username: 'test',
+    firstName: 'Ronald',
+    lastName: 'McDonald',
+    email: 'test@example.com',
     password: 'secret',
   }
 ) => {
