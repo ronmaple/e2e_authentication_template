@@ -8,15 +8,27 @@ export enum Roles {
 export type User = {
   id: string
   _id: string
-  username: string
+  email: string
+  firstName: string
+  lastName: string
   password: string
   role: Roles
 }
 
 const userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     unique: true,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    unique: false,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    unique: false,
     required: true,
   },
   password: {
